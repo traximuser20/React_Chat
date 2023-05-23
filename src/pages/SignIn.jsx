@@ -6,10 +6,6 @@ import { signInWithEmailAndPassword } from "firebase/auth";
 import { auth, signInWithGooglePopup, signInWithFacebookPopup, signInWithGitHubPopup} from "../utils/firebaseAuth";
 
 const SignIn = () => {
-  // const [user, setUser] = useState({
-  //   email: "",
-  //   pass: "",
-  // });
 
   const [isChecked, setIsChecked] = useState(false);
 
@@ -58,16 +54,7 @@ const SignIn = () => {
   // };
 
   // const handleClick = () => {
-  //   if (user.email === "") {
-  //     setValidate({ email: "Please enter your email ... !" });
-  //   }
-  //   if (user.pass === "") {
-  //     setValidate({ pass: "Please enter your password ... !" });
-  //   } else {
-  //     setValidate({
-  //       success: "Your account has been successfully logged in ... !",
-  //     });
-  //   }
+  //   navigate("/");
   // };
 
   const handleGoogle = () => {
@@ -98,46 +85,40 @@ const SignIn = () => {
             <div className="text-black text-6xl text-center mb-5 mt-16 font-bold">
               <h1> Login Here</h1>
             </div>
-            <form>
-              {/* onSubmit={(ev) => handleSubmit(ev)}> */}
+            <form onSubmit={handleSubmit}>
               <div className="relative w-full mb-3">
                 <label
                   className="block uppercase text-blueGray-600 text-xs font-bold mb-2"
-                  for="grid-password"
+                  htmlFor="grid-password"
                 >
                   Email
                 </label>
                 <input
                   required
-                  // value={user.email}
                   type="email"
                   className="text-black border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded-full text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
                   placeholder="Email"
-                  // onChange={(ev) => handleUserEmail(ev)}
                 />
                 <span className="text-rose-500">{validate.email}</span>
               </div>
               <div className="relative w-full mb-3">
                 <label
                   className="block uppercase text-blueGray-600 text-xs font-bold mb-2"
-                  for="grid-password"
+                  htmlFor="grid-password"
                 >
                   Password
                 </label>
                 <input
                   type="password"
                   required
-                  // value={user.pass}
                   className="text-black border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded-full text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
                   placeholder="Password"
-                  // onChange={(ev) => handleUserPassword(ev)}
                 />
                 <span className="text-rose-500">{validate.pass}</span>
               </div>
               <div className="jus">
                 <label className="inline-flex items-center cursor-pointer mt-5">
                   <input
-                    // onChange={(ev) => handleChecked(ev)}
                     id="customCheckLogin"
                     type="checkbox"
                     className="form-checkbox border-0 rounded text-blueGray-700 ml-1 w-5 h-5 ease-linear transition-all duration-150"
@@ -149,9 +130,8 @@ const SignIn = () => {
               </div>
               <div className="text-center mt-6">
                 <button
-                  // onClick={handleClick}
                   className="text-black hover:bg-sky-500 text-sm font-bold uppercase px-6 py-3 rounded-full shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 w-full ease-linear transition-all duration-150"
-                  type="button"
+                  type="submit"
                 >
                   Login
                 </button>
@@ -166,7 +146,7 @@ const SignIn = () => {
                     className="text-black text-sm font-semibold hover:text-sky-500 underline cursor-pointer"
                     // onClick={handleNew}
                   >
-                    Recover your Password ?
+                    <Link to="/forget">Recover your Password ?</Link>
                   </span>
                 </div>
                 <div className="mt-3">

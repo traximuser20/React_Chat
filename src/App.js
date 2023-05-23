@@ -5,6 +5,7 @@ import Home from './pages/Home';
 import { useContext } from "react";
 import {AuthContext} from "./context/AuthContext"
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+import Forgot from './pages/Forgot';
 
 
 function App() {
@@ -31,6 +32,7 @@ function App() {
           />
           <Route path="login" element={<SignIn />} />
           <Route path="register" element={<Register />} />
+          <Route path="forget" element={<Forgot />} />
         </Route>
       </Routes>
     </BrowserRouter>

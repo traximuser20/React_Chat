@@ -2,21 +2,15 @@ import React, { useState } from "react";
 import "../styles/socialButtons.css";
 import { FaGoogle, FaLinkedin, FaFacebook, FaGithub } from "react-icons/fa";
 import "../App.css";
-import Cookie from "universal-cookie";
+// import Cookie from "universal-cookie";
 import AddAvatar from "../assets/AddAvatar.png";
 import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
-import { auth, db, storage } from "../utils/firebaseAuth";
+import { auth, db, storage, signInWithGooglePopup, signInWithFacebookPopup, signInWithGitHubPopup } from "../utils/firebaseAuth";
 import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
 import { doc, setDoc } from "firebase/firestore";
 import { useNavigate, Link } from "react-router-dom";
 
 const Register = () => {
-  const [user, setUser] = useState({
-    name: "",
-    email: "",
-    pass: "",
-  });
-
   const [validate, setValidate] = useState({
     name: "",
     email: "",
@@ -30,23 +24,37 @@ const Register = () => {
 
   const navigate = useNavigate();
 
-  const [isChecked, setIsChecked] = useState(false);
+  // const [isChecked, setIsChecked] = useState(false);
 
-  const cookie = new Cookie();
+  // const cookie = new Cookie();
 
-  const handleChange = (e) => {
-    // console.log("Change: ", ev.target.checked);
-    setIsChecked(e.target.checked);
-  };
+  // const handleChange = (e) => {
+  //   // console.log("Change: ", ev.target.checked);
+  //   setIsChecked(e.target.checked);
+  // };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console("Data: ", e.target.value);
-    const displayName = e.target[0].value;
-    const email = e.target[1].value;
-    const password = e.target[2].value;
-    const file = e.target[3].files[0];
+    // console("Data: ", e.target.value);
+    const file = e.target[0].files[0];
+    const displayName = e.target[1].value;
+    const email = e.target[2].value;
+    const password = e.target[3].value;
 
+    // if(displayName === "") {
+    //   setValidate({ name: "Please fill your Name ... !" });
+    //   return;
+    // }
+    // else if (email === "") {
+    //   setValidate({ email: "Please fill your Email ... !" });
+    //   return;
+    // }
+    // else if (password === "") {
+    //   setValidate({ pass: "Please fill your Password ... !" });
+    //   return;
+    // }
+    // else {
+    //   setValidate()
     try {
       //Create user
       const res = await createUserWithEmailAndPassword(auth, email, password);
@@ -85,6 +93,7 @@ const Register = () => {
       setErr(true);
       setLoading(false);
     }
+    // }
   };
 
   // const handleName = (ev) => {
@@ -103,51 +112,35 @@ const Register = () => {
   // };
 
   // const handleClick = () => {
-  //   if (user.name === "") {
-  //     setValidate({ name: "Please fill your Name ... !" });
-  //     return;
-  //   }
-  //   if (user.email === "") {
-  //     setValidate({ email: "Please fill your Email ... !" });
-  //     return;
-  //   }
-  //   if (user.pass === "") {
-  //     setValidate({ pass: "Please fill your Password ... !" });
-  //     return;
-  //   }
-  //   if (isChecked === true) {
-  //     setValidate({ success: "Account has been created successfully ... !" });
-  //   } else {
-  //     //   clearStates();
-  //     setValidate({ success: "Account has been created successfully ... !" });
-  //   }
+  //   navigate("/");
   // };
 
-  const clearStates = () => {
-    setUser({
-      name: "",
-      email: "",
-      pass: "",
-    });
-  };
+  // const clearStates = () => {
+  //   setUser({
+  //     name: "",
+  //     email: "",
+  //     pass: "",
+  //   });
+  // };
 
   const handleGoogle = () => {
-    // console.log("Google button clicked");
-    // signInWithGooglePopup()
+    console.log("Google button clicked");
+    signInWithGooglePopup()
   };
 
   const handleFacebook = () => {
-    // console.log("Facebook button clicked");
-    // signInWithFacebookPopup();
+    console.log("Facebook button clicked");
+    signInWithFacebookPopup();
   };
 
   const handleLinkedIn = () => {
-    // console.log("LinkedIn button clicked");
+    console.log("LinkedIn button clicked");
+    alert("Feature is under development")
   };
 
   const handleGithub = () => {
-    // console.log("Github button clicked");
-    // signInWithGitHubPopup();
+    console.log("Github button clicked");
+    signInWithGitHubPopup();
   };
 
   return (
@@ -159,13 +152,12 @@ const Register = () => {
               <h2> Create your Accout </h2>
             </div>
             <div className="content-center w-full h-full"></div>
-            <form>
-            <input required style={{ display: "none" }} type="file" id="file" />
+            <form onSubmit={handleSubmit}>
+              <input style={{ display: "none" }} type="file" id="file" />
               <label htmlFor="file">
                 <img src={AddAvatar} alt="" />
                 <span>Add an avatar</span>
               </label>
-              {/* onSubmit={(ev) => handleSubmit(ev)}> */}
               <div className="relative w-full mb-3">
                 <label
                   className="block uppercase text-blueGray-600 text-xs font-bold mb-2"
@@ -175,11 +167,9 @@ const Register = () => {
                 </label>
                 <input
                   required
-                  type="name"
-                  // value={user.name}
-                  // onChange={(ev) => handleName(ev)}
                   className="text-black border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded-full text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
-                  placeholder="Full Name"
+                  type="text"
+                  placeholder="Name"
                 />
                 <span className="text-rose-500">{validate.name}</span>
               </div>
@@ -193,8 +183,6 @@ const Register = () => {
                 <input
                   required
                   type="email"
-                  // value={user.email}
-                  // onChange={(ev) => handleEmail(ev)}
                   className="text-black border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded-full text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
                   placeholder="Email"
                 />
@@ -210,8 +198,6 @@ const Register = () => {
                 <input
                   required
                   type="password"
-                  // value={user.pass}
-                  // onChange={(ev) => handlePassword(ev)}
                   className="text-black border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded-full text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
                   placeholder="Password"
                 />
@@ -220,8 +206,6 @@ const Register = () => {
               <div className="contentStart">
                 <label className="inline-flex items-center cursor-pointer mt-5">
                   <input
-                    // onChange={(ev) => handleChange(ev)}
-                    id="customCheckLogin"
                     type="checkbox"
                     className="form-checkbox border-0 rounded text-blueGray-700 ml-1 w-5 h-5 ease-linear transition-all duration-150"
                   />
@@ -233,9 +217,7 @@ const Register = () => {
               <div className="text-center mt-6">
                 <button
                   disabled={loading}
-                  // onClick={handleClick}
                   className="text-black hover:bg-sky-500 text-sm font-bold uppercase px-6 py-3 rounded-full shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 w-full ease-linear transition-all duration-150"
-                  type="submit"
                 >
                   Sign up
                 </button>
@@ -246,10 +228,7 @@ const Register = () => {
                 )}
                 <span className="text-green-500">{validate.success}</span>
               </div>
-              <span
-                className="text-black text-sm font-semibold hover:text-sky-500 underline cursor-pointer"
-                // onClick={handleNew}
-              >
+              <span className="text-black text-sm font-semibold hover:text-sky-500 underline cursor-pointer">
                 <Link to="/login">Already have an Account ?</Link>
               </span>
             </form>

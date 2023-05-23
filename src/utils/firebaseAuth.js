@@ -1,8 +1,8 @@
 import { initializeApp } from "firebase/app";
 
-import { getAuth, signInWithPopup, GoogleAuthProvider, FacebookAuthProvider, GithubAuthProvider} from "firebase/auth";
+import { getAuth, signOut, signInWithPopup, GoogleAuthProvider, FacebookAuthProvider, GithubAuthProvider} from "firebase/auth";
 
-import { getFirestore, doc, getDoc, setDoc } from "firebase/firestore";
+import { getFirestore } from "firebase/firestore";
 
 import { getStorage } from "firebase/storage";
 
@@ -32,7 +32,8 @@ const firebaseConfig = {
 };
 
 export const app = initializeApp(firebaseConfig);
-export const auth = getAuth(app);
+export const auth = getAuth();
+export const firebaseAuth = getAuth(app);
 export const storage = getStorage();
 export const db = getFirestore();
 
@@ -161,6 +162,6 @@ export const signInWithGitHubPopup = async () => {
 //   return await signInWithEmailAndPassword(auth, email, password);
 // };
 
-// export const signOutUser = async () => {
-//   await signOut(auth);
-// };
+export const signOutUser = async () => {
+  await signOut(firebaseAuth);
+};
