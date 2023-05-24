@@ -21,10 +21,12 @@ const Messages = () => {
   console.log(messages)
 
   return (
-    <div className="messages">
+    <div>
+      <div className="flex-1 p:2 sm:p-6 justify-between flex-col h-screen">
       {messages.map((m) => (
         <Message message={m} key={m.id} />
       ))}
+      </div>
     </div>
   );
 };

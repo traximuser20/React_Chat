@@ -7,9 +7,9 @@ const Home = () => {
   return (
     <div className="flex">
       <div className="w-[30%] h-full">
-        {/* className="flex-1 p:2 sm:p-6 justify-between flex flex-col h-screen" */}
         <Sidebar />
       </div>
+      <hr className="bg-gray-200 w-0.5 h-screen"/>
       <div className="w-[70%] h-full">
         <Chat />
       </div>

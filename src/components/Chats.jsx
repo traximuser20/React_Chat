@@ -29,25 +29,32 @@ const Chats = () => {
   };
 
   return (
-    <div className="w-full h-full">
-      {Object.entries(chats)?.sort((a,b)=>b[1].date - a[1].date).map((chat) => (
-        <div>
+    <div className="w-full h-20 px-2 flex-wrap">
+      {Object.entries(chats)
+        ?.sort((a, b) => b[1].date - a[1].date)
+        .map((chat) => (
           <div
-          className="userChat"
-          key={chat[0]}
-          onClick={() => handleSelect(chat[1].userInfo)}
-        >
-          <img 
-          className="w-10 sm:w-16 h-10 sm:h-16 rounded-full"
-          src={chat[1].userInfo.photoURL} alt="" />
-          <div className="text-black ">
-            <span>{chat[1].userInfo.displayName}</span>
-            <p>{chat[1].lastMessage?.text}</p>
+            className="h-full w-full flex items-center rounded-md bg-slate-200 shadow-xl px-2"
+            key={chat[0]}
+            onClick={() => handleSelect(chat[1].userInfo)}
+          >
+            <img
+              className="w-10 sm:w-16 h-10 sm:h-16 rounded-full"
+              src={chat[1].userInfo.photoURL}
+              alt=""
+            />
+            <div className="px-1">
+              <span className="font-bold font-mono px-2 text-xl">
+                {chat[1].userInfo.displayName}
+              </span>
+              <div className="flex flex-col space-y-2 text-xs max-w-xs mx-2 order-2 items-start">
+                <span className="px-4 py-2 rounded-lg inline-block rounded-bl-none bg-gray-300 text-black shadow-xl">
+                  {chat[1].lastMessage?.text}
+                </span>
+              </div>
+            </div>
           </div>
-        </div>
-        <hr />
-        </div>
-      ))}
+        ))}
     </div>
   );
 };

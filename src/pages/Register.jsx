@@ -155,8 +155,10 @@ const Register = () => {
             <form onSubmit={handleSubmit}>
               <input style={{ display: "none" }} type="file" id="file" />
               <label htmlFor="file">
-                <img src={AddAvatar} alt="" />
-                <span>Add an avatar</span>
+                <div className="flex-auto w-full text-center align-center	">
+                <img className="cursor-pointer h-20" src={AddAvatar} alt="" />
+                <span className="text-blue-500 align-center font-bold">Add an avatar</span>
+                </div>
               </label>
               <div className="relative w-full mb-3">
                 <label

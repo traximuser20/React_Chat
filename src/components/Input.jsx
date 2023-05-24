@@ -11,8 +11,6 @@ import {
 import { db, storage } from "../utils/firebaseAuth";
 import { IoIosAttach } from "react-icons/io";
 import { v4 as uuid } from "uuid";
-import Attach from "../assets/attach.png";
-import Img from "../assets/img.png";
 import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage";
 import { BsEmojiSmile, BsCardImage } from "react-icons/bs";
 
@@ -76,29 +74,8 @@ const Input = () => {
     setImg(null);
   };
   return (
-    // <div className="input">
-    //   <input
-    //     type="text"
-    //     placeholder="Type something..."
-    //     onChange={(e) => setText(e.target.value)}
-    //     value={text}
-    //   />
-    //   <div className="send">
-    //     <img src={Attach} alt="" />
-    //     <input
-    //       type="file"
-    //       style={{ display: "none" }}
-    //       id="file"
-    //       onChange={(e) => setImg(e.target.files[0])}
-    //     />
-    //     <label htmlFor="file">
-    //       <BsImage />
-    //     </label>
-    //     <button onClick={handleSend}>Send</button>
-    //   </div>
-    // </div>
     <div className="border-t-2 border-gray-200 px-4 pt-4 mb-2 sm:mb-0">
-      <div className="relative flex">
+      <div className="relative flex shadow-xl">
         <span className="absolute inset-y-0 flex items-center">
           <button
             type="button"
@@ -129,7 +106,7 @@ const Input = () => {
         />
         <div className="absolute right-0 items-center inset-y-0 hidden sm:flex">
           <div className="flex">
-            <IoIosAttach />
+            <IoIosAttach className="cursor-pointer"/>
             <input
               type="file"
               style={{ display: "none" }}

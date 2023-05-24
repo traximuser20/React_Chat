@@ -12,7 +12,6 @@ import {
 } from "firebase/firestore";
 import { db } from "../utils/firebaseAuth";
 import { AuthContext } from "../context/AuthContext";
-import { FaSearch } from "react-icons/fa";
 
 const Search = () => {
   const [username, setUsername] = useState("");
@@ -79,23 +78,53 @@ const Search = () => {
     setUsername("");
   };
   return (
-    <div>
-      <div className="w-full h-16 items-center flex py-4">
-        <FaSearch className="text-2xl" title="Search" />
+    <div className="mb-3 mt-3 h-20">
+      <div className="w-full items-center flex py-4 px-1 relative">
+        <svg
+          aria-hidden="true"
+          className="w-6 h-6 text-gray-500 dark:text-gray-400 hover:text-black cursor-pointer"
+          fill="currentColor"
+          viewBox="0 0 20 20"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            fillRule="evenodd"
+            d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z"
+            clipRule="evenodd"
+          ></path>
+        </svg>
         <input
-        className="h-16 w-full"
+          className="h-12 w-full px-2 rounded-full border-sky-500 focus:border-blue-500 border-2 border-solid	bg-gray-100 text-black"
           type="text"
           placeholder="Find a user"
           onKeyDown={handleKey}
           onChange={(e) => setUsername(e.target.value)}
           value={username}
         />
+        <button type="button">
+          <svg
+            aria-hidden="true"
+            className="w-6 h-6 text-gray-500 dark:text-gray-400 hover:text-black"
+            fill="currentColor"
+            viewBox="0 0 20 20"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              fillRule="evenodd"
+              d="M7 4a3 3 0 016 0v4a3 3 0 11-6 0V4zm4 10.93A7.001 7.001 0 0017 8a1 1 0 10-2 0A5 5 0 015 8a1 1 0 00-2 0 7.001 7.001 0 006 6.93V17H6a1 1 0 100 2h8a1 1 0 100-2h-3v-2.07z"
+              clipRule="evenodd"
+            ></path>
+          </svg>
+        </button>
       </div>
       <hr/>
-      {err && <span>User not found!</span>}
+      {err && <span className="font-bold text-red-500">User not found!</span>}
       {user && (
-        <div className="flex sm:items-center cursor-pointer justify-between py-3 border-b-2 border-gray-200" onClick={handleSelect}>
-          <div className="relative flex items-center space-x-4">
+        <div
+          className="flex sm:items-center cursor-pointer justify-between py-3 border-b-2 border-gray-800"
+          onClick={handleSelect}
+        >
+          <div className="relative flex shadow-xl h-20 w-full align-center px-2 py-2">
             <div className="relative">
               <img
                 src={user.photoURL}
@@ -105,13 +134,12 @@ const Search = () => {
             </div>
             <div className="flex flex-col leading-tight">
               <div className="text-2xl mt-1 flex items-center">
-                <span className="text-gray-700 mr-3">{user.displayName}</span>
+                <span className="text-black px-2 py-3 font-semibold">{user.displayName}</span>
               </div>
             </div>
           </div>
         </div>
       )}
-      <hr />
     </div>
   );
 };
